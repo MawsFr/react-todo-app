@@ -12,6 +12,10 @@ export default mergeConfig(
         provider: "playwright",
         instances: [{ browser: "chromium" }],
       },
+      coverage: {
+        enabled: true,
+        include: ["**/src/**"],
+      },
     },
   })
 );
