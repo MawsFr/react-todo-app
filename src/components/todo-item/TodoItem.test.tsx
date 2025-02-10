@@ -4,9 +4,11 @@ import { expect, describe, it } from "vitest";
 
 describe(TodoItem, () => {
   it("should display the todo text", async () => {
-    const { getByText } = render(<TodoItem text="Learn React" />);
+    const { getByRole } = render(<TodoItem text="Learn React" />);
 
-    await expect.element(getByText("Learn React")).toBeInTheDocument();
+    await expect
+      .element(getByRole("listitem"))
+      .toHaveTextContent("Learn React");
   });
 
   it("should not be done by default", async () => {
