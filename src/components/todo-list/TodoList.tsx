@@ -1,15 +1,25 @@
-import TodoItem, { TodoItemProps } from "@/components/todo-item/TodoItem";
+import TodoItem, { TodoItemData } from "@/components/todo-item/TodoItem";
 
-type TodoListProps = {
-  todoList: TodoItemProps[];
+export type TodoListProps = {
+  todoList: TodoItemData[];
+  toggleDone: (todoItem: TodoItemData) => void;
 };
 
-export default function TodoList({ todoList: todos }: TodoListProps) {
-  const renderTodoItem = (todoItem: TodoItemProps) => (
-    <TodoItem key={todoItem.text} text={todoItem.text} />
+export default function TodoList({ todoList, toggleDone }: TodoListProps) {
+  const onToggleDone = (todoItem: TodoItemData) => {
+    toggleDone(todoItem);
+  };
+
+  const renderTodoItem = (todoItem: TodoItemData) => (
+    <TodoItem
+      key={todoItem.text}
+      text={todoItem.text}
+      done={todoItem.done}
+      toggleDone={() => onToggleDone(todoItem)}
+    />
   );
 
-  const renderTodoItems = todos.map(renderTodoItem);
+  const renderTodoItems = todoList.map(renderTodoItem);
 
   return <ul aria-label="todo-list">{renderTodoItems}</ul>;
 }
